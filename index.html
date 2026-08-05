@@ -3,61 +3,474 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FractionDemon YUFU2 - Основная информация</title>
+    <title>Кровавый устав · Демонический орден</title>
+    <!-- Font Awesome 6 (бесплатно) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ----- ОБЩИЙ СБРОС И ШРИФТЫ ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
+            background: #1a0c0c;
+            color: #e0c0c0;
+            font-family: 'Cinzel', 'Times New Roman', serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 90px; /* отступ под фиксированную шапку */
         }
+
+        /* ----- ФОН: ЧЁРНАЯ ПЫЛЬ / ПЕПЕЛ (анимированный) ----- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(40,0,0,0.6) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(20,0,0,0.8) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.3) 0px, rgba(0,0,0,0.3) 2px, 
+                                          rgba(30,0,0,0.1) 2px, rgba(30,0,0,0.1) 6px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Анимированные частицы пепла (с помощью псевдо-элементов и теней) */
+        .ash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ash-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(60,60,60,0.2) 0%, rgba(10,10,10,0.6) 80%);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.5;
+            animation: floatAsh linear infinite;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        @keyframes floatAsh {
+            0% { transform: translateY(100vh) translateX(-20px) scale(0.6); opacity: 0.1; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) translateX(40px) scale(1.2); opacity: 0; }
+        }
+
+        /* ----- ШАПКА (фиксированная) ----- */
         .header {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            border-left: 5px solid #4CAF50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: #0f0505;
+            border-bottom: 3px solid #8b0000;
+            box-shadow: 0 4px 30px rgba(80, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
         }
+
+        .header img {
+            height: 65px;
+            max-width: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px #aa2222);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #d43b3b, #5a0a0a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px #aa0000;
+            font-weight: 700;
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        /* ----- НАВИГАЦИЯ (вкладки) ----- */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .tab-btn {
+            background: #1f0a0a;
+            color: #b07a7a;
+            border: 1px solid #5a1a1a;
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 30px 30px 0 0;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.6);
+            background: #130808;
+            color: #b08080;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn i {
+            margin-right: 6px;
+            color: #a33;
+        }
+
+        .tab-btn:hover {
+            background: #2f1010;
+            color: #f0c0c0;
+            border-bottom: 2px solid #cc4444;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(180, 0, 0, 0.4);
+        }
+
+        .tab-btn.active {
+            background: #2f0a0a;
+            color: #f0d0d0;
+            border-bottom: 3px solid #ff3333;
+            background: #1f0505;
+            text-shadow: 0 0 10px #ff5555;
+            box-shadow: 0 -2px 20px rgba(200, 0, 0, 0.5);
+        }
+
+        /* ----- КОНТЕНТ (вкладки) ----- */
         .content {
-            margin-top: 30px;
-            padding: 20px;
-            background: #fafafa;
-            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 30px auto 50px;
+            padding: 20px 30px;
+            background: rgba(10, 2, 2, 0.75);
+            backdrop-filter: blur(3px);
+            border-radius: 40px 12px 40px 12px;
+            border-left: 2px solid #6b1a1a;
+            border-right: 2px solid #6b1a1a;
+            box-shadow: 0 0 60px rgba(80, 0, 0, 0.5);
+            min-height: 60vh;
         }
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #888;
-            text-align: center;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+
+        .tab-page {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .tab-page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0.3; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-page h2 {
+            font-size: 2.4rem;
+            color: #d63a3a;
+            text-shadow: 0 0 20px #8b0000;
+            border-bottom: 2px solid #5f1a1a;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            letter-spacing: 2px;
+        }
+
+        .tab-page h2 i {
+            color: #b33;
+            font-size: 2rem;
+        }
+
+        .tab-page p, .tab-page li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #d4b0b0;
+            margin-bottom: 12px;
+        }
+
+        .tab-page ul {
+            list-style: none;
+            padding-left: 8px;
+        }
+
+        .tab-page ul li::before {
+            content: "⏤ ";
+            color: #aa3333;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .tab-page .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .tab-page .card {
+            background: #140808;
+            border: 1px solid #4f1414;
+            border-radius: 20px 4px 20px 4px;
+            padding: 18px 12px;
+            box-shadow: 0 0 30px rgba(100, 0, 0, 0.2);
+            transition: 0.2s;
+        }
+
+        .tab-page .card:hover {
+            border-color: #aa3333;
+            box-shadow: 0 0 40px rgba(180, 0, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        .tab-page .card h3 {
+            color: #cc6a6a;
+            font-size: 1.3rem;
+            border-bottom: 1px dashed #6a1a1a;
+            padding-bottom: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #2f0a0a;
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid #7a2222;
+            font-size: 0.8rem;
+            color: #d99;
+            margin-right: 8px;
+        }
+
+        /* адаптив */
+        @media (max-width: 800px) {
+            .header {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 10px 16px;
+                gap: 8px;
+            }
+            .header h1 { font-size: 1.2rem; margin-left: 8px; }
+            .tabs { justify-content: center; width: 100%; }
+            .tab-btn { font-size: 0.7rem; padding: 5px 12px; }
+            .content { padding: 15px; margin: 20px 10px; }
+            .tab-page h2 { font-size: 1.8rem; flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🧪 FractionDemon YUFU2</h1>
-        <p><strong>Основная информация</strong></p>
-        <p style="color: #666;">Страница создана 5 августа 2026 г.</p>
-    </div>
 
+    <!-- Фоновый пепел (частицы) -->
+    <div class="ash-overlay" id="ashOverlay"></div>
+
+    <!-- ШАПКА -->
+    <header class="header">
+        <img src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Герб ордена" onerror="this.style.display='none'">
+        <h1><i class="fas fa-skull" style="color:#8b1a1a; -webkit-text-fill-color: initial;"></i> Кровавый устав</h1>
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="info"><i class="fas fa-scroll"></i> Информация</button>
+            <button class="tab-btn" data-tab="oaths"><i class="fas fa-hand-fist"></i> Клятвы</button>
+            <button class="tab-btn" data-tab="ranks"><i class="fas fa-arrow-up"></i> Повышение</button>
+            <button class="tab-btn" data-tab="circles"><i class="fas fa-circle"></i> Круги крови</button>
+            <button class="tab-btn" data-tab="duels"><i class="fas fa-swords"></i> Дуэли</button>
+            <button class="tab-btn" data-tab="territory"><i class="fas fa-map"></i> Территория</button>
+        </nav>
+    </header>
+
+    <!-- КОНТЕНТ -->
     <div class="content">
-        <h2>📌 О проекте</h2>
-        <p>Здесь будет размещена основная информация о FractionDemon YUFU2.</p>
-        <p>Для получения актуального содержимого, пожалуйста, обратитесь к оригинальной странице на Google Sites.</p>
-        
-        <h2>🔗 Ссылки</h2>
-        <ul>
-            <li><a href="https://sites.google.com/view/fractiondemon-yufu2/основная-информация" target="_blank">Оригинальная страница</a></li>
-            <li><a href="#">Дополнительные материалы (скоро)</a></li>
-        </ul>
+
+        <!-- 1. ИНФОРМАЦИЯ (Основные уставы) -->
+        <div id="info" class="tab-page active">
+            <h2><i class="fas fa-book-open"></i> Основные уставы</h2>
+            <p><span class="badge">Кровь</span> <span class="badge">Пепел</span> <span class="badge">Вечность</span></p>
+            <p>Демонический орден зиждется на трёх столпах: <strong>Кровь, Пепел и Вечность</strong>. 
+            Уставы обязательны для всех, кто носит метку. Нарушение карается по Кругам.</p>
+            <ul>
+                <li><strong>Первый устав:</strong> Кровь не проливается без причины.</li>
+                <li><strong>Второй устав:</strong> Пепел хранит память павших.</li>
+                <li><strong>Третий устав:</strong> Вечность принадлежит Ордену.</li>
+                <li><strong>Четвёртый устав:</strong> Никто не покидает Круги без воли Совета.</li>
+                <li><strong>Пятый устав:</strong> Владения защищаются до последней капли.</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-gavel"></i> Суд</h3><p>Совет из трёх Князей решает споры.</p></div>
+                <div class="card"><h3><i class="fas fa-droplet"></i> Жертва</h3><p>Ежемесячное приношение крови.</p></div>
+            </div>
+        </div>
+
+        <!-- 2. КЛЯТВЫ (Устои крови) -->
+        <div id="oaths" class="tab-page">
+            <h2><i class="fas fa-hand-middle-finger"></i> Клятвы · Устои крови</h2>
+            <p><span class="badge">Кровная клятва</span> нерушима. Её скрепляют печатью на алтаре.</p>
+            <ul>
+                <li><strong>Клятва Верности:</strong> «Кровь за Кровь, Пепел за Пепел»</li>
+                <li><strong>Клятва Молчания:</strong> Тайны Ордена не покидают Кругов.</li>
+                <li><strong>Клятва Мести:</strong> Оскорбление смывается только кровью.</li>
+                <li><strong>Клятва Наследия:</strong> Сила передаётся по праву крови.</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-cross"></i> Печать</h3><p>Клятва скрепляется ритуальным ножом.</p></div>
+                <div class="card"><h3><i class="fas fa-fire"></i> Огонь</h3><p>Сжигание свитка — знак принятия.</p></div>
+            </div>
+        </div>
+
+        <!-- 3. ПОВЫШЕНИЕ (Ранги и путь) -->
+        <div id="ranks" class="tab-page">
+            <h2><i class="fas fa-arrow-trend-up"></i> Ранги и путь</h2>
+            <p><span class="badge">Иерархия</span> строится на крови и заслугах.</p>
+            <ul>
+                <li><strong>Пепел (0–3 ранг):</strong> новички, испытуемые.</li>
+                <li><strong>Кровь (4–6 ранг):</strong> воины, исполнители.</li>
+                <li><strong>Князь (7–9 ранг):</strong> правители Кругов.</li>
+                <li><strong>Архонт (10 ранг):</strong> глава Ордена.</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-medal"></i> Повышение</h3><p>Требует дуэли и жертвы.</p></div>
+                <div class="card"><h3><i class="fas fa-crown"></i> Путь</h3><p>Только кровь открывает врата.</p></div>
+            </div>
+        </div>
+
+        <!-- 4. КРУГИ КРОВИ -->
+        <div id="circles" class="tab-page">
+            <h2><i class="fas fa-circle-notch"></i> Круги крови</h2>
+            <p><span class="badge">9 Кругов</span> — от низшего до высшего.</p>
+            <ul>
+                <li><strong>1–3 Круги:</strong> Круги Испытаний (пепел и боль).</li>
+                <li><strong>4–6 Круги:</strong> Круги Войны (кровь и честь).</li>
+                <li><strong>7–9 Круги:</strong> Круги Власти (вечность и тайны).</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-bolt"></i> Переход</h3><p>Между кругами — только через ритуал.</p></div>
+                <div class="card"><h3><i class="fas fa-mask"></i> Хранители</h3><p>Каждый круг защищён демоном-стражем.</p></div>
+            </div>
+        </div>
+
+        <!-- 5. ДУЭЛИ (Демонические споры) -->
+        <div id="duels" class="tab-page">
+            <h2><i class="fas fa-crossed-swords"></i> Дуэли · Демонические споры</h2>
+            <p><span class="badge">Кровь решает</span> любой спор. Дуэль до первой крови или до смерти.</p>
+            <ul>
+                <li><strong>Спор чести:</strong> до первой капли.</li>
+                <li><strong>Спор власти:</strong> до падения противника.</li>
+                <li><strong>Спор наследия:</strong> только смерть смывает позор.</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-shield"></i> Секунданты</h3><p>Два свидетеля от каждого Круга.</p></div>
+                <div class="card"><h3><i class="fas fa-skull"></i> Арена</h3><p>Круг Пепла — место дуэлей.</p></div>
+            </div>
+        </div>
+
+        <!-- 6. ТЕРРИТОРИЯ (Владения) -->
+        <div id="territory" class="tab-page">
+            <h2><i class="fas fa-map-location-dot"></i> Владения Ордена</h2>
+            <p><span class="badge">Земли</span> <span class="badge">Крепости</span> <span class="badge">Рубежи</span></p>
+            <ul>
+                <li><strong>Чёрный Замок</strong> — сердце Ордена.</li>
+                <li><strong>Пепельные Пустоши</strong> — тренировочные земли.</li>
+                <li><strong>Кровавый Лес</strong> — место охоты.</li>
+                <li><strong>Врата Вечности</strong> — запретная зона.</li>
+            </ul>
+            <div class="card-grid">
+                <div class="card"><h3><i class="fas fa-helmet-safety"></i> Гарнизон</h3><p>В каждом владении — стража.</p></div>
+                <div class="card"><h3><i class="fas fa-tower-observation"></i> Башни</h3><p>Наблюдают за границами.</p></div>
+            </div>
+        </div>
     </div>
 
-    <div class="footer">
-        <p>Это копия-заглушка для GitHub. Оригинал: <a href="https://sites.google.com/view/fractiondemon-yufu2" target="_blank">Google Sites</a></p>
-        <p>Обновлено: Август 2026</p>
-    </div>
+    <script>
+        (function() {
+            // ----- ГЕНЕРАЦИЯ ПЕПЛА (частицы) -----
+            const ashContainer = document.getElementById('ashOverlay');
+            for (let i = 0; i < 35; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'ash-particle';
+                const size = 12 + Math.random() * 45;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = '-10%';
+                particle.style.animationDuration = 15 + Math.random() * 35 + 's';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.opacity = 0.15 + Math.random() * 0.4;
+                ashContainer.appendChild(particle);
+            }
+
+            // ----- ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК -----
+            const tabs = document.querySelectorAll('.tab-btn');
+            const pages = {
+                info: document.getElementById('info'),
+                oaths: document.getElementById('oaths'),
+                ranks: document.getElementById('ranks'),
+                circles: document.getElementById('circles'),
+                duels: document.getElementById('duels'),
+                territory: document.getElementById('territory')
+            };
+
+            function setActiveTab(tabId) {
+                // убираем активные классы у кнопок
+                tabs.forEach(btn => btn.classList.remove('active'));
+                // убираем активные классы у страниц
+                Object.values(pages).forEach(page => page.classList.remove('active'));
+
+                // активируем нужную кнопку
+                const activeBtn = Array.from(tabs).find(btn => btn.dataset.tab === tabId);
+                if (activeBtn) activeBtn.classList.add('active');
+                // активируем страницу
+                if (pages[tabId]) pages[tabId].classList.add('active');
+            }
+
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const tabId = this.dataset.tab;
+                    if (tabId) setActiveTab(tabId);
+                });
+            });
+
+            // ----- ИНИЦИАЛИЗАЦИЯ (первая вкладка уже активна) -----
+            // но на всякий случай, если активная не совпадает с info – поправим
+            const firstActive = document.querySelector('.tab-btn.active');
+            if (firstActive) {
+                const firstTab = firstActive.dataset.tab;
+                if (firstTab && pages[firstTab]) {
+                    Object.values(pages).forEach(p => p.classList.remove('active'));
+                    pages[firstTab].classList.add('active');
+                }
+            } else {
+                // если нет активной — ставим info
+                setActiveTab('info');
+            }
+        })();
+    </script>
+
+    <!-- маленький фикс для картинки если не загружается -->
+    <div style="display: none;">&nbsp;</div>
 </body>
 </html>
