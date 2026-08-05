@@ -438,6 +438,96 @@
             padding-left: 16px;
         }
 
+        /* ===== СТИЛИ ДЛЯ ПОВЫШЕНИЯ ===== */
+        .rank-path {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 10px 0 20px 0;
+        }
+
+        .rank-card {
+            background: rgba(20, 5, 5, 0.5);
+            border: 1px solid #3a1a1a;
+            border-radius: 12px;
+            padding: 18px 22px;
+            transition: 0.3s;
+            border-left: 4px solid #5a1a1a;
+        }
+
+        .rank-card:hover {
+            border-color: #7a2a2a;
+            background: rgba(30, 10, 10, 0.5);
+            border-left-color: #aa3333;
+        }
+
+        .rank-card .rank-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #d63a3a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rank-card .rank-name .arrow {
+            color: #5a3a3a;
+            font-size: 1.2rem;
+        }
+
+        .rank-card .rank-cooldown {
+            font-size: 0.9rem;
+            color: #b08080;
+            margin: 6px 0 10px 0;
+            padding: 4px 12px;
+            background: rgba(40, 10, 10, 0.4);
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #3a1a1a;
+        }
+
+        .rank-card .rank-requirements {
+            list-style: none;
+            padding-left: 4px;
+            margin-top: 8px;
+        }
+
+        .rank-card .rank-requirements li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #c0a0a0;
+            padding: 3px 0;
+            border-bottom: none;
+        }
+
+        .rank-card .rank-requirements li::before {
+            content: "◆ ";
+            color: #883333;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .rank-card .rank-note {
+            color: #8a6a6a;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #2a1a1a;
+        }
+
+        .rank-card .rank-note strong {
+            color: #b08080;
+        }
+
+        .rank-card.special {
+            border-left-color: #d4a040;
+            background: rgba(40, 25, 10, 0.3);
+        }
+
+        .rank-card.special .rank-name {
+            color: #d4a040;
+        }
+
         /* ===== РАМКИ ДЛЯ ЛУН ===== */
         .moon-grid {
             display: grid;
@@ -694,6 +784,7 @@
             .hierarchy-scheme .level-row .rank { font-size: 0.75rem; padding: 3px 8px; }
             .section-title { font-size: 1.4rem; padding: 10px 16px; }
             .section-title i { font-size: 1.3rem; }
+            .rank-card .rank-name { font-size: 1.2rem; }
         }
 
         @media (max-width: 600px) {
@@ -724,6 +815,9 @@
             .rule-block p { font-size: 0.85rem; }
             .section-title { font-size: 1.1rem; padding: 8px 12px; }
             .section-title i { font-size: 1rem; margin-right: 8px; }
+            .rank-card { padding: 12px 14px; }
+            .rank-card .rank-name { font-size: 1rem; }
+            .rank-card .rank-requirements li { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -745,8 +839,8 @@
     <!-- ===== ВКЛАДКИ ===== -->
     <div class="tabs-wrapper">
         <button class="tab-btn" data-tab="info"><i class="fas fa-scroll"></i> Информация</button>
-        <button class="tab-btn active" data-tab="oaths"><i class="fas fa-hand-fist"></i> Клятвы</button>
-        <button class="tab-btn" data-tab="ranks"><i class="fas fa-arrow-up"></i> Повышение</button>
+        <button class="tab-btn" data-tab="oaths"><i class="fas fa-hand-fist"></i> Клятвы</button>
+        <button class="tab-btn active" data-tab="ranks"><i class="fas fa-arrow-up"></i> Повышение</button>
         <button class="tab-btn" data-tab="circles"><i class="fas fa-circle"></i> Круги крови</button>
         <button class="tab-btn" data-tab="duels"><i class="fas fa-swords"></i> Дуэли</button>
         <button class="tab-btn" data-tab="territory"><i class="fas fa-map"></i> Территория</button>
@@ -758,6 +852,7 @@
 
         <!-- ===== СТРАНИЦА ИНФОРМАЦИЯ ===== -->
         <div id="info" class="tab-page">
+            <!-- Содержимое info (полное из предыдущих версий) -->
             <div class="info-section">
                 <h2><i class="fas fa-moon"></i> Двенадцать Лун</h2>
                 <div class="moon-grid">
@@ -901,7 +996,7 @@
         </div>
 
         <!-- ===== СТРАНИЦА КЛЯТВЫ ===== -->
-        <div id="oaths" class="tab-page active">
+        <div id="oaths" class="tab-page">
             <div class="info-section">
                 <h2><i class="fas fa-hand-fist"></i> Клятвы и Устои крови</h2>
 
@@ -953,7 +1048,6 @@
                     <div class="exception">Инструкторы следят за дисциплиной, порядком и уважением внутри фракции, не выходя за пределы своих полномочий.</div>
                 </div>
 
-                <!-- ===== ПРАВИЛА ДОДЗЁ (УСИЛЕННЫЙ ЗАГОЛОВОК) ===== -->
                 <div class="section-title"><i class="fas fa-shield-halved"></i> Правила додзё</div>
                 <div class="section-subtitle">Додзё — единственное место для установленного боя и дуэльного порядка.</div>
 
@@ -976,7 +1070,6 @@
                     <p><span class="rule-number">05</span> Дуэлянтам запрещено покидать додзё во время активного боя.</p>
                 </div>
 
-                <!-- ===== ТРЕНИРОВКИ, МЕРОПРИЯТИЯ И ПОСТРОЕНИЯ (УСИЛЕННЫЙ ЗАГОЛОВОК) ===== -->
                 <div class="section-title"><i class="fas fa-people-group"></i> Тренировки, мероприятия и построения</div>
                 <div class="section-subtitle">Правила активности, строя и дисциплины во время сборов.</div>
 
@@ -1006,7 +1099,6 @@
                     <p><span class="rule-number">07</span> Основной строй всегда по центру. При Высшей Луне Низшие Луны строятся слева от неё; при Прародителе Высшие Луны стоят справа от Прародителя.</p>
                 </div>
 
-                <!-- ===== УСТОИ КРОВИ И НАКАЗАНИЯ (УСИЛЕННЫЙ ЗАГОЛОВОК) ===== -->
                 <div class="section-title"><i class="fas fa-gavel"></i> Устои крови и наказания</div>
                 <div class="section-subtitle">Система взысканий, полномочий и ограничений на повышение.</div>
 
@@ -1029,7 +1121,6 @@
                     <p><strong>Ограничения:</strong> 1/3 выговора запрещает повышение. 2/3 или строгий выговор запрещает повышение и вступление в служебные формирования.</p>
                 </div>
 
-                <!-- ===== ГОРА НАТАГУМО (УСИЛЕННЫЙ ЗАГОЛОВОК) ===== -->
                 <div class="section-title"><i class="fas fa-mountain"></i> Гора Натагумо</div>
                 <div class="section-subtitle">Гостеприимство распространяется только на достойных гостей, не нарушающих местный порядок.</div>
 
@@ -1055,7 +1146,6 @@
                     <div class="exception"><strong>Исключение:</strong> Прародитель и высшие луны.</div>
                 </div>
 
-                <!-- ===== ДОМ ОТРЁКШИХСЯ (УСИЛЕННЫЙ ЗАГОЛОВОК) ===== -->
                 <div class="section-title"><i class="fas fa-house-crack"></i> Дом Отрекшихся</div>
                 <div class="section-subtitle">Территория отряда, где действуют собственные правила уважения и порядка.</div>
 
@@ -1091,8 +1181,194 @@
             </div>
         </div>
 
+        <!-- ===== СТРАНИЦА ПОВЫШЕНИЕ ===== -->
+        <div id="ranks" class="tab-page active">
+            <div class="info-section">
+                <h2><i class="fas fa-arrow-up"></i> Путь повышения</h2>
+
+                <!-- Основное правило -->
+                <div class="section-title"><i class="fas fa-gem"></i> Основное правило повышения</div>
+                <div class="note-box">
+                    <p>Повышение демона проходит по цепочке рангов. Для перехода на следующий ранг необходимо выполнить указанные требования.</p>
+                    <p><strong>Примечание:</strong> КД на повышения считается персонально: таймер запускается с момента последнего повышения и не сбрасывается общим временем суток. Для защиты от абуза новое повышение доступно только после полного личного КД + 10 минут проверочного буфера.</p>
+                    <p><em>Пример: человек повысился в 22:00 09.03, он сможет повыситься вновь не раньше 22:10 10.03.</em></p>
+                    <p><strong>КД сохранено по рангам</strong></p>
+                </div>
+
+                <div class="section-title"><i class="fas fa-arrow-trend-up"></i> Путь повышения демона</div>
+
+                <!-- Otokuma → Demon -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Otokuma</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Demon</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 1 день</div>
+                    <ul class="rank-requirements">
+                        <li>Пройти проверку на клятвы крови.</li>
+                        <li>Поучаствовать в убийстве 2-х истребителей.</li>
+                        <li>Получить одобрение в письменном виде от демона 12-ти лун для прохождения первоизданного срока.</li>
+                    </ul>
+                </div>
+
+                <!-- Demon → Keykon -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Demon</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Keykon</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 1 день</div>
+                    <ul class="rank-requirements">
+                        <li>Захватить 5 точек с инструкторами / лунами.</li>
+                        <li>Поучаствовать в убийстве 6 истребителей.</li>
+                        <li>Принять участие в тренировке от инструктора.</li>
+                    </ul>
+                </div>
+
+                <!-- Keykon → Hofuma -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Keykon</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Hofuma</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 2 дня</div>
+                    <div class="rank-note"><strong>Демон малой крови</strong></div>
+                    <ul class="rank-requirements">
+                        <li>Принять участие в двух тренировках от демона Двенадцати Лун.</li>
+                        <li>Срубить головы 12 истребителей.</li>
+                        <li>Выполнить поручение инструктора.</li>
+                    </ul>
+                </div>
+
+                <!-- Hofuma → Chisuma -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Hofuma</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Chisuma</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 2 дня</div>
+                    <ul class="rank-requirements">
+                        <li>Срубить головы 12 истребителей.</li>
+                        <li>Принять участие в захвате 10 точек.</li>
+                        <li>Выполнить одно поручение от низших лун.</li>
+                        <li>Получить одобрение от инструктора.</li>
+                    </ul>
+                </div>
+
+                <!-- Chisuma → Chikuma -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Chisuma</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Chikuma</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 2 дня</div>
+                    <ul class="rank-requirements">
+                        <li>Срубить головы 15 истребителей.</li>
+                        <li>Устроить совместно либо в одиночку диверсию в любом месте.</li>
+                        <li>Выслушать 2 лекции от инструктора или Демона Двенадцати Лун.</li>
+                        <li>Получить Первую Степень почтения от низшей луны.</li>
+                    </ul>
+                </div>
+
+                <!-- Chikuma → Asakuma -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Chikuma</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Asakuma</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 2 дня</div>
+                    <div class="rank-note"><strong>Демон средней крови</strong></div>
+                    <ul class="rank-requirements">
+                        <li>Выполнить два поручения от Демона 12-ти Лун.</li>
+                        <li>Срубить головы 20 истребителей.</li>
+                        <li>Принять участие в захвате десяти точек.</li>
+                    </ul>
+                </div>
+
+                <!-- Asakuma → Hobura -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Asakuma</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Hobura</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 3 дня</div>
+                    <ul class="rank-requirements">
+                        <li>Получить похвалу от одной из демона из низших лун.</li>
+                        <li>Срубить головы 30 истребителям.</li>
+                    </ul>
+                </div>
+
+                <!-- Hobura → Shateigashira -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Hobura</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Shateigashira</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 3 дня</div>
+                    <ul class="rank-requirements">
+                        <li>Убить 20 истребителей.</li>
+                        <li>Организовать 2 диверсии и предоставить подтверждение результата.</li>
+                        <li>Выполнить задание демона Двенадцати Лун.</li>
+                    </ul>
+                </div>
+
+                <!-- Shateigashira → Wakagashira -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Shateigashira</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Wakagashira</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 3 дня</div>
+                    <div class="rank-note"><strong>Демон магии крови</strong></div>
+                    <ul class="rank-requirements">
+                        <li>Успешно провести боевую вылазку в составе группы не менее 3 демонов.</li>
+                        <li>Убить 20 истребителей.</li>
+                        <li>Получить Первую Степень почтения от демона Двенадцати Лун.</li>
+                    </ul>
+                </div>
+
+                <!-- Wakagashira → Tsukomon -->
+                <div class="rank-card">
+                    <div class="rank-name">
+                        <span>Wakagashira</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Tsukomon</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: 3 дня</div>
+                    <ul class="rank-requirements">
+                        <li>Успешно провести захват территории либо крупную диверсию под контролем Луны или инструктора.</li>
+                        <li>Срубить головы 25 истребителей.</li>
+                        <li>Получить Первую Степень почтения от Высшей Луны.</li>
+                    </ul>
+                </div>
+
+                <!-- Tsukomon → Shiko (специальный) -->
+                <div class="rank-card special">
+                    <div class="rank-name">
+                        <span>Tsukomon</span>
+                        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span>Shiko</span>
+                        <span style="font-size:0.8rem;color:#8a6a6a;font-weight:400;margin-left:8px;">(12-й ранг)</span>
+                    </div>
+                    <div class="rank-cooldown"><i class="fas fa-clock"></i> КД на повышение: —</div>
+                    <div class="rank-note"><strong>Могут получить:</strong> только пределы крови.</div>
+                    <ul class="rank-requirements">
+                        <li>Иметь Первый предел крови или выше.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== ОСТАЛЬНЫЕ СТРАНИЦЫ ===== -->
-        <div id="ranks" class="tab-page"><i class="fas fa-arrow-up" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Повышение</p></div>
         <div id="circles" class="tab-page"><i class="fas fa-circle" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Круги крови</p></div>
         <div id="duels" class="tab-page"><i class="fas fa-swords" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Дуэли</p></div>
         <div id="territory" class="tab-page"><i class="fas fa-map" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Территория</p></div>
