@@ -82,6 +82,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #0f0505; /* запасной фон */
         }
 
         .header-bg {
@@ -357,7 +358,8 @@
 
     <!-- ===== ШАПКА С КАРТИНКОЙ НА ВЕСЬ РАЗМЕР ===== -->
     <header class="header">
-        <img class="header-bg" src="https://i.ibb.co/MxRPf8LR/0385ef0f8fc4fec2e8735e1eafc53c5b.jpg" alt="Фракция Демонов">
+        <!-- ПРЯМАЯ ССЫЛКА НА ИЗОБРАЖЕНИЕ -->
+        <img class="header-bg" src="https://i.ibb.co/MxRPf8LR/0385ef0f8fc4fec2e8735e1eafc53c5b.jpg" alt="Фракция Демонов" onerror="this.style.display='none'">
         <div class="header-overlay"></div>
         <div class="header-content">
             <i class="fas fa-skull"></i>
@@ -378,7 +380,6 @@
 
     <!-- ===== КОНТЕНТ С ПАДАЮЩИМИ ЧАСТИЦАМИ ===== -->
     <div class="content">
-        <!-- Падающие частицы пепла внутри контента -->
         <div class="content-ash" id="contentAsh"></div>
 
         <div id="info" class="tab-page active">
@@ -468,7 +469,6 @@
                 });
             });
 
-            // активируем первую вкладку
             const firstActive = document.querySelector('.tab-btn.active');
             if (firstActive) {
                 const firstTab = firstActive.dataset.tab;
