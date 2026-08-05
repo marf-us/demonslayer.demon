@@ -41,6 +41,7 @@
             z-index: 0;
         }
 
+        /* Фоновый пепел (общий) */
         .ash-overlay {
             position: fixed;
             top: 0;
@@ -69,72 +70,82 @@
             100% { transform: translateY(-10vh) translateX(40px) scale(1.2); opacity: 0; }
         }
 
-        /* ===== ШАПКА (РАСШИРЕННАЯ) ===== */
+        /* ===== ШАПКА С КАРТИНКОЙ НА ВЕСЬ РАЗМЕР ===== */
         .header {
             width: 100%;
-            background: #0f0505;
-            border-bottom: 4px solid #8b0000;
-            box-shadow: 0 6px 40px rgba(80, 0, 0, 0.9);
-            padding: 20px 40px;
+            height: 320px;
             position: relative;
             z-index: 10;
+            overflow: hidden;
+            border-bottom: 4px solid #8b0000;
+            box-shadow: 0 8px 50px rgba(80, 0, 0, 0.9);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            backdrop-filter: blur(2px);
-            min-height: 120px;
+            justify-content: center;
         }
 
-        .header-left {
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5) saturate(1.2);
+            z-index: 1;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(10,2,2,0.7) 100%);
+            z-index: 2;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 20px 40px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
-            flex: 1;
+            gap: 8px;
         }
 
-        .header-left img {
-            height: 80px;
-            max-width: 200px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 15px #aa2222) brightness(1.1);
-            border-radius: 12px;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 12px;
-            border: 1px solid #5a1a1a;
-            transition: 0.3s;
-        }
-
-        .header-left img:hover {
-            filter: drop-shadow(0 0 30px #ff3333) brightness(1.2);
-            transform: scale(1.02);
+        .header-content i {
+            font-size: 3.5rem;
+            color: #cc3333;
+            text-shadow: 0 0 40px #ff3333, 0 0 80px #aa0000;
+            -webkit-text-fill-color: initial;
         }
 
         .header-title {
-            font-size: 2.2rem;
+            font-size: 3.8rem;
             font-weight: 900;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            background: linear-gradient(180deg, #d43b3b, #5a0a0a);
+            background: linear-gradient(180deg, #f0c0c0, #d43b3b, #5a0a0a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px #aa0000, 0 0 80px #550000;
-            white-space: nowrap;
+            text-shadow: 0 0 60px #aa0000, 0 0 120px #550000, 0 4px 20px rgba(0,0,0,0.8);
             font-family: 'Cinzel', serif;
-            flex: 2;
-            text-align: center;
+            line-height: 1.2;
         }
 
-        .header-title i {
-            -webkit-text-fill-color: initial;
-            color: #aa2222;
-            margin-right: 12px;
-            text-shadow: 0 0 20px #ff3333;
-        }
-
-        .header-right {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
+        .header-subtitle {
+            font-size: 1.2rem;
+            color: #d08080;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px #aa3333, 0 2px 10px rgba(0,0,0,0.9);
+            font-weight: 400;
+            border-top: 2px solid rgba(180, 40, 40, 0.4);
+            padding-top: 8px;
+            -webkit-text-fill-color: #d08080;
         }
 
         /* ===== ВКЛАДКИ ПОД ШАПКОЙ ===== */
@@ -194,7 +205,7 @@
             box-shadow: 0 -2px 25px rgba(200, 0, 0, 0.6);
         }
 
-        /* ===== КОНТЕНТ (пустой) ===== */
+        /* ===== КОНТЕНТ С ПАДАЮЩИМИ ЧАСТИЦАМИ ПЕПЛА ===== */
         .content {
             position: relative;
             z-index: 2;
@@ -211,6 +222,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Частицы пепла внутри контента */
+        .content-ash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .content-ash-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(180, 160, 160, 0.15) 0%, rgba(60, 50, 50, 0.4) 80%);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.4;
+            animation: fallAsh linear infinite;
+            box-shadow: 0 0 30px rgba(100, 80, 80, 0.1);
+        }
+
+        @keyframes fallAsh {
+            0% { transform: translateY(-20px) translateX(-10px) scale(0.6) rotate(0deg); opacity: 0.1; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(calc(100vh)) translateX(30px) scale(1.1) rotate(360deg); opacity: 0; }
         }
 
         .tab-page {
@@ -222,6 +263,8 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.6;
+            position: relative;
+            z-index: 1;
         }
 
         .tab-page.active {
@@ -243,21 +286,10 @@
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 1000px) {
-            .header {
-                padding: 16px 24px;
-                min-height: 100px;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-            .header-left { flex: 0 0 auto; }
-            .header-left img { height: 60px; }
-            .header-title {
-                font-size: 1.5rem;
-                letter-spacing: 3px;
-                flex: 1;
-                white-space: normal;
-            }
-            .header-right { display: none; }
+            .header { height: 250px; }
+            .header-title { font-size: 2.5rem; letter-spacing: 5px; }
+            .header-content i { font-size: 2.5rem; }
+            .header-subtitle { font-size: 1rem; }
 
             .tabs-wrapper {
                 padding: 12px 16px;
@@ -282,16 +314,17 @@
         }
 
         @media (max-width: 600px) {
-            .header {
-                padding: 12px 16px;
-                min-height: 80px;
-            }
-            .header-left img { height: 45px; max-width: 120px; }
+            .header { height: 200px; }
             .header-title {
-                font-size: 1.1rem;
+                font-size: 1.5rem;
+                letter-spacing: 3px;
+            }
+            .header-content i { font-size: 1.8rem; }
+            .header-subtitle {
+                font-size: 0.7rem;
                 letter-spacing: 2px;
             }
-            .header-title i { margin-right: 6px; }
+            .header-content { padding: 10px 16px; }
 
             .tabs-wrapper {
                 padding: 8px 10px;
@@ -319,19 +352,17 @@
 </head>
 <body>
 
-    <!-- Фоновый пепел -->
+    <!-- Фоновый пепел (общий) -->
     <div class="ash-overlay" id="ashOverlay"></div>
 
-    <!-- ===== РАСШИРЕННАЯ ШАПКА С КАРТИНКОЙ ===== -->
+    <!-- ===== ШАПКА С КАРТИНКОЙ НА ВЕСЬ РАЗМЕР ===== -->
     <header class="header">
-        <div class="header-left">
-            <img src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Фракция Демонов" onerror="this.style.display='none'">
-        </div>
-        <div class="header-title">
-            <i class="fas fa-skull"></i> Фракция Демонов Demonslayer#2
-        </div>
-        <div class="header-right">
-            <!-- пусто для баланса -->
+        <img class="header-bg" src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Фракция Демонов">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <i class="fas fa-skull"></i>
+            <div class="header-title">Фракция Демонов</div>
+            <div class="header-subtitle">Demonslayer#2 · Кровавый орден</div>
         </div>
     </header>
 
@@ -345,8 +376,11 @@
         <button class="tab-btn" data-tab="territory"><i class="fas fa-map"></i> Территория</button>
     </div>
 
-    <!-- ===== КОНТЕНТ (пустые страницы) ===== -->
+    <!-- ===== КОНТЕНТ С ПАДАЮЩИМИ ЧАСТИЦАМИ ===== -->
     <div class="content">
+        <!-- Падающие частицы пепла внутри контента -->
+        <div class="content-ash" id="contentAsh"></div>
+
         <div id="info" class="tab-page active">
             <i class="fas fa-scroll"></i>
             Информация
@@ -375,7 +409,7 @@
 
     <script>
         (function() {
-            // ===== ГЕНЕРАЦИЯ ПЕПЛА =====
+            // ===== ГЕНЕРАЦИЯ ФОНОВОГО ПЕПЛА =====
             const ashContainer = document.getElementById('ashOverlay');
             for (let i = 0; i < 45; i++) {
                 const particle = document.createElement('div');
@@ -389,6 +423,22 @@
                 particle.style.animationDelay = Math.random() * 25 + 's';
                 particle.style.opacity = 0.15 + Math.random() * 0.4;
                 ashContainer.appendChild(particle);
+            }
+
+            // ===== ГЕНЕРАЦИЯ ПАДАЮЩИХ ЧАСТИЦ В КОНТЕНТЕ =====
+            const contentAsh = document.getElementById('contentAsh');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'content-ash-particle';
+                const size = 6 + Math.random() * 25;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = '-10%';
+                particle.style.animationDuration = 12 + Math.random() * 25 + 's';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.opacity = 0.2 + Math.random() * 0.4;
+                contentAsh.appendChild(particle);
             }
 
             // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
