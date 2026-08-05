@@ -69,47 +69,55 @@
             100% { transform: translateY(-10vh) translateX(40px) scale(1.2); opacity: 0; }
         }
 
-        /* ===== ШАПКА (в начале страницы, не фиксированная) ===== */
+        /* ===== ШАПКА (РАСШИРЕННАЯ) ===== */
         .header {
             width: 100%;
             background: #0f0505;
-            border-bottom: 3px solid #8b0000;
-            box-shadow: 0 4px 30px rgba(80, 0, 0, 0.8);
-            padding: 16px 30px;
+            border-bottom: 4px solid #8b0000;
+            box-shadow: 0 6px 40px rgba(80, 0, 0, 0.9);
+            padding: 20px 40px;
             position: relative;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: space-between;
             backdrop-filter: blur(2px);
+            min-height: 120px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             flex: 1;
         }
 
         .header-left img {
-            height: 64px;
-            max-width: 160px;
+            height: 80px;
+            max-width: 200px;
             object-fit: contain;
-            filter: drop-shadow(0 0 10px #aa2222);
-            border-radius: 8px;
-            background: rgba(0,0,0,0.3);
-            padding: 4px 8px;
+            filter: drop-shadow(0 0 15px #aa2222) brightness(1.1);
+            border-radius: 12px;
+            background: rgba(0,0,0,0.4);
+            padding: 6px 12px;
+            border: 1px solid #5a1a1a;
+            transition: 0.3s;
+        }
+
+        .header-left img:hover {
+            filter: drop-shadow(0 0 30px #ff3333) brightness(1.2);
+            transform: scale(1.02);
         }
 
         .header-title {
-            font-size: 1.9rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             text-transform: uppercase;
             background: linear-gradient(180deg, #d43b3b, #5a0a0a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px #aa0000, 0 0 60px #550000;
+            text-shadow: 0 0 40px #aa0000, 0 0 80px #550000;
             white-space: nowrap;
             font-family: 'Cinzel', serif;
             flex: 2;
@@ -119,7 +127,8 @@
         .header-title i {
             -webkit-text-fill-color: initial;
             color: #aa2222;
-            margin-right: 8px;
+            margin-right: 12px;
+            text-shadow: 0 0 20px #ff3333;
         }
 
         .header-right {
@@ -132,30 +141,30 @@
         .tabs-wrapper {
             width: 100%;
             background: #0f0505;
-            border-bottom: 2px solid #5a1a1a;
-            padding: 10px 30px;
+            border-bottom: 3px solid #5a1a1a;
+            padding: 14px 40px;
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             position: relative;
             z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.7);
         }
 
         .tab-btn {
             background: #1f0a0a;
             color: #b07a7a;
             border: 1px solid #5a1a1a;
-            padding: 10px 22px;
+            padding: 12px 28px;
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            border-radius: 8px 8px 0 0;
+            border-radius: 10px 10px 0 0;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,0.6);
             background: #130808;
             color: #b08080;
@@ -163,16 +172,17 @@
         }
 
         .tab-btn i {
-            margin-right: 8px;
+            margin-right: 10px;
             color: #a33;
+            font-size: 1rem;
         }
 
         .tab-btn:hover {
             background: #2f1010;
             color: #f0c0c0;
             border-bottom: 3px solid #cc4444;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(180, 0, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(180, 0, 0, 0.5);
         }
 
         .tab-btn.active {
@@ -180,17 +190,17 @@
             color: #f0d0d0;
             border-bottom: 3px solid #ff3333;
             background: #1f0505;
-            text-shadow: 0 0 10px #ff5555;
-            box-shadow: 0 -2px 20px rgba(200, 0, 0, 0.5);
+            text-shadow: 0 0 15px #ff5555;
+            box-shadow: 0 -2px 25px rgba(200, 0, 0, 0.6);
         }
 
-        /* ===== КОНТЕНТ (пустой, только фон) ===== */
+        /* ===== КОНТЕНТ (пустой) ===== */
         .content {
             position: relative;
             z-index: 2;
             max-width: 1400px;
             margin: 40px auto 50px;
-            padding: 60px 30px;
+            padding: 80px 30px;
             background: rgba(10, 2, 2, 0.7);
             backdrop-filter: blur(3px);
             border-radius: 40px 12px 40px 12px;
@@ -207,7 +217,7 @@
             display: none;
             width: 100%;
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #6a3a3a;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -220,7 +230,7 @@
         }
 
         .tab-page i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #4a1a1a;
             display: block;
             margin-bottom: 20px;
@@ -232,48 +242,78 @@
         }
 
         /* ===== АДАПТИВ ===== */
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             .header {
+                padding: 16px 24px;
+                min-height: 100px;
                 flex-wrap: wrap;
-                padding: 12px 16px;
-                gap: 8px;
+                gap: 10px;
             }
             .header-left { flex: 0 0 auto; }
-            .header-left img { height: 48px; }
+            .header-left img { height: 60px; }
             .header-title {
-                font-size: 1.3rem;
-                letter-spacing: 2px;
+                font-size: 1.5rem;
+                letter-spacing: 3px;
                 flex: 1;
                 white-space: normal;
             }
             .header-right { display: none; }
 
             .tabs-wrapper {
-                padding: 10px 12px;
-                gap: 5px;
+                padding: 12px 16px;
+                gap: 6px;
             }
             .tab-btn {
-                font-size: 0.65rem;
-                padding: 6px 12px;
+                font-size: 0.7rem;
+                padding: 8px 16px;
                 letter-spacing: 1px;
             }
-            .tab-btn i { margin-right: 4px; }
+            .tab-btn i { margin-right: 6px; font-size: 0.8rem; }
 
             .content {
-                padding: 40px 16px;
+                padding: 50px 16px;
                 margin: 20px 10px;
                 min-height: 40vh;
             }
             .tab-page {
-                font-size: 1.0rem;
+                font-size: 1.1rem;
             }
+            .tab-page i { font-size: 2.5rem; }
         }
 
-        @media (max-width: 500px) {
-            .header-title { font-size: 1.0rem; }
-            .tab-btn { font-size: 0.55rem; padding: 4px 8px; }
-            .header-left img { height: 36px; }
-            .content { padding: 30px 12px; min-height: 30vh; }
+        @media (max-width: 600px) {
+            .header {
+                padding: 12px 16px;
+                min-height: 80px;
+            }
+            .header-left img { height: 45px; max-width: 120px; }
+            .header-title {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+            .header-title i { margin-right: 6px; }
+
+            .tabs-wrapper {
+                padding: 8px 10px;
+                gap: 4px;
+            }
+            .tab-btn {
+                font-size: 0.55rem;
+                padding: 5px 10px;
+                letter-spacing: 0.5px;
+                border-radius: 6px 6px 0 0;
+            }
+            .tab-btn i { margin-right: 3px; font-size: 0.65rem; }
+
+            .content {
+                padding: 30px 12px;
+                min-height: 30vh;
+                border-radius: 20px 6px 20px 6px;
+            }
+            .tab-page {
+                font-size: 0.9rem;
+            }
+            .tab-page i { font-size: 2rem; }
         }
     </style>
 </head>
@@ -282,10 +322,10 @@
     <!-- Фоновый пепел -->
     <div class="ash-overlay" id="ashOverlay"></div>
 
-    <!-- ===== ШАПКА (в начале) ===== -->
+    <!-- ===== РАСШИРЕННАЯ ШАПКА С КАРТИНКОЙ ===== -->
     <header class="header">
         <div class="header-left">
-            <img src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Герб ордена" onerror="this.style.display='none'">
+            <img src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Фракция Демонов" onerror="this.style.display='none'">
         </div>
         <div class="header-title">
             <i class="fas fa-skull"></i> Фракция Демонов Demonslayer#2
@@ -337,10 +377,10 @@
         (function() {
             // ===== ГЕНЕРАЦИЯ ПЕПЛА =====
             const ashContainer = document.getElementById('ashOverlay');
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 45; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'ash-particle';
-                const size = 12 + Math.random() * 45;
+                const size = 12 + Math.random() * 50;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.left = Math.random() * 100 + '%';
