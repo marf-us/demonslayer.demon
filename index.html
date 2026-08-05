@@ -73,7 +73,7 @@
         /* ===== ШАПКА С КАРТИНКОЙ НА ВЕСЬ РАЗМЕР ===== */
         .header {
             width: 100%;
-            height: 320px;
+            height: 380px;
             position: relative;
             z-index: 10;
             overflow: hidden;
@@ -91,7 +91,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.5) saturate(1.2);
+            filter: brightness(0.55) saturate(1.3) contrast(1.1);
             z-index: 1;
         }
 
@@ -101,7 +101,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(10,2,2,0.7) 100%);
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(10,2,2,0.75) 100%);
             z-index: 2;
         }
 
@@ -124,7 +124,7 @@
         }
 
         .header-title {
-            font-size: 3.8rem;
+            font-size: 4rem;
             font-weight: 900;
             letter-spacing: 8px;
             text-transform: uppercase;
@@ -137,7 +137,7 @@
         }
 
         .header-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #d08080;
             letter-spacing: 4px;
             text-transform: uppercase;
@@ -286,8 +286,8 @@
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 1000px) {
-            .header { height: 250px; }
-            .header-title { font-size: 2.5rem; letter-spacing: 5px; }
+            .header { height: 280px; }
+            .header-title { font-size: 2.8rem; letter-spacing: 5px; }
             .header-content i { font-size: 2.5rem; }
             .header-subtitle { font-size: 1rem; }
 
@@ -314,9 +314,9 @@
         }
 
         @media (max-width: 600px) {
-            .header { height: 200px; }
+            .header { height: 220px; }
             .header-title {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 letter-spacing: 3px;
             }
             .header-content i { font-size: 1.8rem; }
@@ -357,7 +357,7 @@
 
     <!-- ===== ШАПКА С КАРТИНКОЙ НА ВЕСЬ РАЗМЕР ===== -->
     <header class="header">
-        <img class="header-bg" src="https://i.ibb.co/fGBWB945/header-logo.png" alt="Фракция Демонов">
+        <img class="header-bg" src="https://i.ibb.co/fzCr987C/header-logo.png" alt="Фракция Демонов">
         <div class="header-overlay"></div>
         <div class="header-content">
             <i class="fas fa-skull"></i>
