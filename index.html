@@ -31,10 +31,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 10% 20%, rgba(40,0,0,0.6) 0%, transparent 30%),
                 radial-gradient(circle at 90% 80%, rgba(20,0,0,0.8) 0%, transparent 40%),
-                repeating-linear-gradient(45deg, rgba(0,0,0,0.3) 0px, rgba(0,0,0,0.3) 2px, 
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.3) 0px, rgba(0,0,0,0.3) 2px,
                                           rgba(30,0,0,0.1) 2px, rgba(30,0,0,0.1) 6px);
             pointer-events: none;
             z-index: 0;
@@ -389,42 +389,126 @@
             margin-right: 4px;
         }
 
-        /* ===== ИЕРАРХИЯ ===== */
-        .hierarchy-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px 30px;
-            background: rgba(10, 2, 2, 0.5);
-            border-radius: 12px;
-            padding: 16px 20px;
+        /* ===== СХЕМА ИЕРАРХИИ ===== */
+        .hierarchy-scheme {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 20px 10px;
+            background: rgba(10, 2, 2, 0.4);
+            border-radius: 16px;
             border: 1px solid #3a1a1a;
             margin: 10px 0 20px 0;
+            font-family: 'Cinzel', serif;
+            position: relative;
         }
 
-        .hierarchy-list li {
-            border-bottom: none !important;
-            padding: 3px 0 !important;
-            font-size: 0.95rem !important;
+        .hierarchy-scheme .level {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 20px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(20, 5, 5, 0.5);
+            border: 1px solid #3a1a1a;
+            min-width: 120px;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .hierarchy-list li::before {
-            content: "◈ " !important;
-            color: #883333 !important;
+        .hierarchy-scheme .level:hover {
+            border-color: #7a2a2a;
+            background: rgba(30, 10, 10, 0.6);
         }
 
-        .note-box {
-            background: rgba(40, 10, 10, 0.5);
-            border-left: 4px solid #8b0000;
-            padding: 14px 20px;
-            margin: 14px 0 20px 0;
-            border-radius: 0 8px 8px 0;
+        .hierarchy-scheme .level .rank {
+            color: #d4b0b0;
             font-size: 0.95rem;
-            color: #c0a0a0;
-            line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
-        .note-box strong {
-            color: #cc6a6a;
+        .hierarchy-scheme .level .rank.high {
+            color: #d63a3a;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .hierarchy-scheme .level .rank.gold {
+            color: #d4a040;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Вертикальные соединительные линии */
+        .hierarchy-scheme .connector {
+            width: 2px;
+            height: 16px;
+            background: linear-gradient(to bottom, #5a1a1a, #3a1a1a);
+            position: relative;
+        }
+
+        .hierarchy-scheme .connector::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #5a1a1a;
+        }
+
+        /* Блок с несколькими рангами в строке */
+        .hierarchy-scheme .level-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 24px;
+            padding: 6px 12px;
+        }
+
+        .hierarchy-scheme .level-row .rank {
+            color: #c0a0a0;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(30, 10, 10, 0.3);
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .hierarchy-scheme .level-row .rank:hover {
+            border-color: #5a2a2a;
+            background: rgba(40, 15, 15, 0.4);
+        }
+
+        .hierarchy-scheme .level-row .rank.high {
+            color: #d63a3a;
+            font-weight: 600;
+        }
+
+        .hierarchy-scheme .level-row .rank.gold {
+            color: #d4a040;
+            font-weight: 600;
+        }
+
+        /* Разделители между уровнями */
+        .hierarchy-scheme .separator {
+            width: 80%;
+            max-width: 400px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #5a1a1a, transparent);
+            margin: 2px 0;
         }
 
         /* ===== СИСТЕМА РЕКОМЕНДАЦИЙ ===== */
@@ -462,6 +546,21 @@
         .rec-card .small {
             font-size: 0.8rem;
             color: #7a5a5a;
+        }
+
+        .note-box {
+            background: rgba(40, 10, 10, 0.5);
+            border-left: 4px solid #8b0000;
+            padding: 14px 20px;
+            margin: 14px 0 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #c0a0a0;
+            line-height: 1.6;
+        }
+
+        .note-box strong {
+            color: #cc6a6a;
         }
 
         /* ===== КРОВАВАЯ ЭЛИТА ===== */
@@ -504,7 +603,6 @@
         @media (max-width: 900px) {
             .moon-grid { grid-template-columns: 1fr; }
             .rec-grid { grid-template-columns: 1fr; }
-            .hierarchy-list { grid-template-columns: 1fr; }
             .header { height: 280px; }
             .header-title { font-size: 2.8rem; letter-spacing: 5px; }
             .header-content i { font-size: 2.5rem; }
@@ -514,6 +612,9 @@
             .content { padding: 30px 20px; margin: 20px 10px; }
             .info-section h2 { font-size: 1.8rem; }
             .moon-box ul { grid-template-columns: 1fr; }
+            .hierarchy-scheme .level { padding: 6px 12px; }
+            .hierarchy-scheme .level .rank { font-size: 0.8rem; }
+            .hierarchy-scheme .level-row .rank { font-size: 0.75rem; padding: 3px 8px; }
         }
 
         @media (max-width: 600px) {
@@ -532,7 +633,10 @@
             .moon-box { padding: 14px 16px; }
             .moon-box h3 { font-size: 1.2rem; }
             .moon-box ul li { font-size: 0.85rem; }
-            .hierarchy-list li { font-size: 0.8rem !important; }
+            .hierarchy-scheme .level { padding: 4px 8px; }
+            .hierarchy-scheme .level .rank { font-size: 0.7rem; }
+            .hierarchy-scheme .level-row { gap: 6px 12px; }
+            .hierarchy-scheme .level-row .rank { font-size: 0.65rem; padding: 2px 6px; }
             .rec-card h4 { font-size: 0.95rem; }
             .rec-card p { font-size: 0.8rem; }
             .elite-item .name { font-size: 0.85rem; }
@@ -570,7 +674,7 @@
 
         <!-- ===== СТРАНИЦА ИНФОРМАЦИЯ ===== -->
         <div id="info" class="tab-page active">
-            
+
             <!-- РАМКИ ВЫСШИХ И НИЗШИХ ЛУН -->
             <div class="info-section">
                 <h2><i class="fas fa-moon"></i> Двенадцать Лун</h2>
@@ -605,27 +709,90 @@
                 <p>Демоны — преимущественно плотоядный, вампирический вид, основной пищей которых являются люди. Солнечный свет смертельно опасен для них и сожжёт их дотла, поэтому вся их активность исключительно ночная. Демоны обладают аномально мощными физическими характеристиками и способностью к регенерации, что делает их невосприимчивыми к обычному оружию и даёт возможность с лёгкостью восстанавливаться после любой раны, включая повторное отращивание головы.</p>
             </div>
 
-            <!-- ИЕРАРХИЯ -->
+            <!-- ИЕРАРХИЯ В ВИДЕ СХЕМЫ -->
             <div class="info-section">
                 <h2><i class="fas fa-sitemap"></i> Иерархия</h2>
-                <ul class="hierarchy-list">
-                    <li>Прародитель Демонов</li>
-                    <li>Первая Тройка Высших Лун</li>
-                    <li>Высшие Луны</li>
-                    <li>Низшие Луны</li>
-                    <li>Кровавая Элита</li>
-                    <li>Третий Предел</li>
-                    <li>Командиры Отрядов</li>
-                    <li>Наставник Инструкторов</li>
-                    <li>Зам. Командиров Отряда</li>
-                    <li>Старший Инструктор</li>
-                    <li>Второй Предел Крови</li>
-                    <li>Первый Предел Крови</li>
-                    <li>Инструктор</li>
-                    <li>Демон Высшей Магии Крови</li>
-                    <li>Стоковый Предел Крови</li>
-                    <li>Демон Низшей Магии Крови</li>
-                </ul>
+
+                <div class="hierarchy-scheme">
+                    <!-- Уровень 1 -->
+                    <div class="level">
+                        <span class="rank gold"><i class="fas fa-crown" style="margin-right:8px;color:#d4a040;"></i>Прародитель Демонов</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 2 -->
+                    <div class="level">
+                        <span class="rank high"><i class="fas fa-star" style="margin-right:6px;color:#d63a3a;"></i>Первая Тройка Высших Лун</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 3 -->
+                    <div class="level">
+                        <span class="rank high">Высшие Луны</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 4 -->
+                    <div class="level">
+                        <span class="rank">Низшие Луны</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 5 -->
+                    <div class="level">
+                        <span class="rank high" style="color:#c08080;">Кровавая Элита</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 6 -->
+                    <div class="level">
+                        <span class="rank">Третий Предел</span>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 7 — два ранга в одной строке -->
+                    <div class="level">
+                        <div class="level-row">
+                            <span class="rank">Командиры Отрядов</span>
+                            <span class="rank high" style="color:#b08080;">Наставник Инструкторов</span>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 8 — три ранга в одной строке -->
+                    <div class="level">
+                        <div class="level-row">
+                            <span class="rank">Зам. Командиров Отряда</span>
+                            <span class="rank">Старший Инструктор</span>
+                            <span class="rank">Второй Предел Крови</span>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 9 — три ранга в одной строке -->
+                    <div class="level">
+                        <div class="level-row">
+                            <span class="rank">Первый Предел Крови</span>
+                            <span class="rank">Инструктор</span>
+                            <span class="rank">Демон Высшей Магии Крови</span>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Уровень 10 — последний -->
+                    <div class="level">
+                        <span class="rank">Демон Низшей Магии Крови</span>
+                    </div>
+                </div>
 
                 <h3>Примечание по эквивалентам ранга</h3>
                 <div class="note-box">
@@ -653,7 +820,7 @@
             <!-- СИСТЕМА РЕКОМЕНДАЦИЙ -->
             <div class="info-section">
                 <h2><i class="fas fa-stamp"></i> Система Рекомендаций</h2>
-                
+
                 <h3>Кровавая печать</h3>
                 <div class="rec-grid">
                     <div class="rec-card">
