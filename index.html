@@ -438,6 +438,99 @@
             padding-left: 16px;
         }
 
+        /* ===== СТИЛИ ДЛЯ КРУГОВ КРОВИ ===== */
+        .circle-card {
+            background: rgba(20, 5, 5, 0.5);
+            border: 2px solid #3a1a1a;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            transition: 0.3s;
+            border-left: 5px solid #5a1a1a;
+        }
+
+        .circle-card:hover {
+            border-color: #7a2a2a;
+            border-left-color: #aa3333;
+            background: rgba(30, 10, 10, 0.5);
+        }
+
+        .circle-card .circle-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #d63a3a;
+            text-shadow: 0 0 20px #8b0000;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .circle-card .circle-title i {
+            color: #aa3333;
+            font-size: 1.4rem;
+        }
+
+        .circle-card .circle-sub {
+            font-size: 0.95rem;
+            color: #b08080;
+            margin-bottom: 14px;
+            padding: 6px 14px;
+            background: rgba(40, 10, 10, 0.3);
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #2a1a1a;
+        }
+
+        .circle-step {
+            background: rgba(20, 5, 5, 0.3);
+            border: 1px solid #2a1a1a;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .circle-step:hover {
+            border-color: #5a2a2a;
+            background: rgba(30, 10, 10, 0.4);
+        }
+
+        .circle-step .step-from-to {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #cc6a6a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .circle-step .step-from-to .arrow {
+            color: #5a3a3a;
+            font-size: 0.9rem;
+        }
+
+        .circle-step .step-req {
+            list-style: none;
+            padding-left: 4px;
+        }
+
+        .circle-step .step-req li {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #c0a0a0;
+            padding: 2px 0;
+            border-bottom: none;
+        }
+
+        .circle-step .step-req li::before {
+            content: "◆ ";
+            color: #883333;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
         /* ===== СТИЛИ ДЛЯ ПУТИ ДУЭЛИ ===== */
         .duel-path {
             display: flex;
@@ -837,6 +930,9 @@
             .rank-card .rank-name { font-size: 1.2rem; }
             .duel-step { padding: 8px 12px; gap: 10px; }
             .duel-step .step-content { font-size: 0.85rem; }
+            .circle-card { padding: 16px 18px; }
+            .circle-card .circle-title { font-size: 1.3rem; }
+            .circle-step .step-from-to { font-size: 1rem; }
         }
 
         @media (max-width: 600px) {
@@ -874,6 +970,11 @@
             .duel-step { padding: 6px 10px; gap: 8px; flex-wrap: wrap; }
             .duel-step .step-number { font-size: 1rem; min-width: 28px; padding: 2px 6px; }
             .duel-step .step-content { font-size: 0.8rem; }
+            .circle-card { padding: 12px 14px; }
+            .circle-card .circle-title { font-size: 1.1rem; }
+            .circle-step { padding: 10px 12px; }
+            .circle-step .step-from-to { font-size: 0.9rem; }
+            .circle-step .step-req li { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -897,8 +998,8 @@
         <button class="tab-btn" data-tab="info"><i class="fas fa-scroll"></i> Информация</button>
         <button class="tab-btn" data-tab="oaths"><i class="fas fa-hand-fist"></i> Клятвы</button>
         <button class="tab-btn" data-tab="ranks"><i class="fas fa-arrow-up"></i> Повышение</button>
-        <button class="tab-btn" data-tab="circles"><i class="fas fa-circle"></i> Круги крови</button>
-        <button class="tab-btn active" data-tab="duels"><i class="fas fa-swords"></i> Дуэли</button>
+        <button class="tab-btn active" data-tab="circles"><i class="fas fa-circle"></i> Круги крови</button>
+        <button class="tab-btn" data-tab="duels"><i class="fas fa-swords"></i> Дуэли</button>
         <button class="tab-btn" data-tab="territory"><i class="fas fa-map"></i> Территория</button>
     </div>
 
@@ -1366,12 +1467,206 @@
             </div>
         </div>
 
+        <!-- ===== СТРАНИЦА КРУГИ КРОВИ ===== -->
+        <div id="circles" class="tab-page active">
+            <div class="info-section">
+                <h2><i class="fas fa-circle"></i> Круги крови</h2>
+
+                <!-- Общая информация -->
+                <div class="section-title"><i class="fas fa-info-circle"></i> Общая информация</div>
+                <div class="note-box">
+                    <p>Начать повышение внутри кругов можно лишь достигнув ранга <strong>Цукомон</strong>.</p>
+                    <p>После каждого повышения внутри кругов ваш ранг будет падать с <strong>Цукомона</strong> до <strong>Хобура</strong>.</p>
+                    <p>Повышение внутри кругов возможно только по специальной системе, общая система повышения не будет учитываться.</p>
+                </div>
+
+                <!-- Иерархия внутри Кругов -->
+                <div class="section-title"><i class="fas fa-sitemap"></i> Иерархия внутри Кругов</div>
+
+                <div class="rule-block">
+                    <p><strong>HDS - 1</strong> — Это начальная точка эволюции демона, он повышается на два пункта в общей иерархии.</p>
+                </div>
+                <div class="rule-block">
+                    <p><strong>HDS - 2</strong> — Получает повышение в иерархии внутри кругов, профессию <strong>демона низшей магии крови</strong> и возможность собирать строй на тренировки, вылазки и т.д.</p>
+                </div>
+                <div class="rule-block">
+                    <p><strong>HDS - 3</strong> — Повышаться в иерархии внутри пределов (на общую иерархию это не распространяется). Возможность организовывать сборы (на вылазки, тренировки и т.д.). Профессию <strong>демона высшей магии крови</strong>.</p>
+                </div>
+                <div class="rule-block">
+                    <p><strong>HDS - 4</strong> — Повышаться в иерархии внутри пределов (на общую иерархию это не распространяется).</p>
+                </div>
+
+                <!-- Система повышения крови -->
+                <div class="section-title"><i class="fas fa-arrow-trend-up"></i> Система повышения крови</div>
+
+                <!-- ПЕРВЫЙ КРУГ -->
+                <div class="circle-card">
+                    <div class="circle-title"><i class="fas fa-circle"></i> Первый круг крови</div>
+                    <div class="circle-sub"><i class="fas fa-droplet"></i> Начало пути</div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Цукомон</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Хобура</span></div>
+                        <ul class="step-req">
+                            <li>Подойти к одной из тройки Высших лун и получить от них дозу крови на переход в круг крови. (Кокушибо, Доума, Аказа)</li>
+                            <li>Одолеть в дуэли любую низшую луну.</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Хобура</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Шитейгашира</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить 3 поручения от низшей луны</li>
+                            <li>Убить 20 истребителей</li>
+                            <li>Помочь Доуме провести служение в его культе</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Шитейгашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Вакагашира</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить 4 поручения от 2 низшей луны (в случае отсутствия к любой низшей луне)</li>
+                            <li>Одолеть 5 демонов в условиях тренировочного боя</li>
+                            <li>Одолеть в битве крови демона с рангом не менее Шитейгаширы</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 80% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Вакагашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Цукомон</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить 4 поручения от 1 низшей луны (в случае отсутствия к любой низшей луне)</li>
+                            <li>Получить одобрение от курирующей луны кругов.</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 70% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ВТОРОЙ КРУГ -->
+                <div class="circle-card">
+                    <div class="circle-title"><i class="fas fa-circle"></i> Второй круг крови</div>
+                    <div class="circle-sub"><i class="fas fa-droplet"></i> Углубление силы</div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Цукомон</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Хобура</span></div>
+                        <ul class="step-req">
+                            <li>Подойти к одной из тройки Высших лун и получить от них дозу крови на переход в новый круг крови. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Хобура</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Шитейгашира</span></div>
+                        <ul class="step-req">
+                            <li>Пройти полный путь по азам демонов. Сдать клятвы крови, побороть жажду крови, познать магию крови, различать редкость крови</li>
+                            <li>Выполнить 3 поручения от низших лун</li>
+                            <li>Убить 30 истребителей</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Шитейгашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Вакагашира</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить поручение от каждой высшей луны</li>
+                            <li>Убить 15 истребителей и распространить их кровь в водоёмах</li>
+                            <li>Выполнить три диверсии на территориях Японии</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 60% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Вакагашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Цукомон</span></div>
+                        <ul class="step-req">
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 50% здоровья. (Кокушибо, Доума, Аказа)</li>
+                            <li>Получение одобрения от курирующей луны кругов.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ТРЕТИЙ КРУГ -->
+                <div class="circle-card">
+                    <div class="circle-title"><i class="fas fa-circle"></i> Третий круг крови</div>
+                    <div class="circle-sub"><i class="fas fa-droplet"></i> Вершина мастерства</div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Цукомон</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Хобура</span></div>
+                        <ul class="step-req">
+                            <li>Подойти к одной из тройки Высших лун и получить от них дозу крови на переход в предел. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Хобура</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Шитейгашира</span></div>
+                        <ul class="step-req">
+                            <li>Помочь Пятой Высшей Луне – Гекко, добыть 10 голов истребителей, создать 10 горшков и сложить туда головы. Преподнести Гекко в качестве подарка.</li>
+                            <li>Убить 40 истребителей.</li>
+                            <li>Поджечь Деревню Кузнецов совместно с другими демонами и устранить всех, кто явится на помощь (если на помощь никто не явится, задание не будет засчитано).</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Шитейгашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Вакагашира</span></div>
+                        <ul class="step-req">
+                            <li>Успешно выполнить 5 поручений от первой высшей луны.</li>
+                            <li>Успешно помочь третьей высшей луне провести мероприятия для демонов.</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 40% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Вакагашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Цукомон</span></div>
+                        <ul class="step-req">
+                            <li>Получить 3 рекомендации от любой луны</li>
+                            <li>Сражение с Второй высшей луной, каким-то чудесным образом довести её до 30% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЧЕТВЕРТЫЙ КРУГ -->
+                <div class="circle-card">
+                    <div class="circle-title"><i class="fas fa-circle"></i> Четвертый круг крови</div>
+                    <div class="circle-sub"><i class="fas fa-droplet"></i> Абсолютная сила</div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Цукомон</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Хобура</span></div>
+                        <ul class="step-req">
+                            <li>Подойти к одной из тройки Высших лун и получить от них дозу крови на переход в предел. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Хобура</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Шитейгашира</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить 3 поручения от Третьей Высшей Луны.</li>
+                            <li>Убить 45 истребителей</li>
+                            <li>Выполнить 3 поручения от Первой высшей луны</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Шитейгашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Вакагашира</span></div>
+                        <ul class="step-req">
+                            <li>Совместно с другими демонами похитить одного Столпа и вынудить его сразиться с Третьей Высшей Луной – Аказой. Преподнести Аказе их битву в качестве подарка</li>
+                            <li>Получить 3 рекомендации от любой луны</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 30% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+
+                    <div class="circle-step">
+                        <div class="step-from-to"><span>Вакагашира</span> <span class="arrow"><i class="fas fa-arrow-right"></i></span> <span>Цукомон</span></div>
+                        <ul class="step-req">
+                            <li>Выполнить 5 последовательных поручения от Первой Высшей Луны – Кокушибо.</li>
+                            <li>Получить 3 рекомендации от Высших Лун.</li>
+                            <li>Сражение с одной из тройки высших лун, каким-то чудесным образом довести её до 20% здоровья. (Кокушибо, Доума, Аказа)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== СТРАНИЦА ДУЭЛИ ===== -->
-        <div id="duels" class="tab-page active">
+        <div id="duels" class="tab-page">
             <div class="info-section">
                 <h2><i class="fas fa-swords"></i> Дуэли крови</h2>
 
-                <!-- Регламент -->
                 <div class="section-title"><i class="fas fa-book"></i> Регламент кровавого поединка</div>
                 <div class="note-box">
                     <p><strong>Дуэль Крови</strong> — поединок между двумя демонами, где каждый стремится доказать силу и превосходство. Вызывающий ставит условия, а вызванный может выставить ответные условия, обязательные к исполнению в случае поражения.</p>
@@ -1400,7 +1695,6 @@
                     </div>
                 </div>
 
-                <!-- Путь дуэли -->
                 <div class="section-title"><i class="fas fa-route"></i> Путь дуэли</div>
                 <div class="duel-path">
                     <div class="duel-step"><span class="step-number">1</span><span class="step-content"><strong>Вызов</strong> — Демон бросает вызов и выставляет условия дуэли.</span></div>
@@ -1410,7 +1704,6 @@
                     <div class="duel-step"><span class="step-number">5</span><span class="step-content"><strong>Клятва</strong> — Проигравший приносит клятву крови и исполняет условия дуэли.</span></div>
                 </div>
 
-                <!-- Порядок проведения -->
                 <div class="section-title"><i class="fas fa-list"></i> Порядок проведения</div>
 
                 <div class="rule-block">
@@ -1423,7 +1716,6 @@
                     <p><strong>Завершение</strong> — Проигравшие приносят клятву крови об исполнении условий в присутствии проводящего. Нарушение клятвы карается строгим выговором. После этого Дуэль Крови считается оконченной.</p>
                 </div>
 
-                <!-- Правила дуэли крови -->
                 <div class="section-title"><i class="fas fa-shield"></i> Правила дуэли крови</div>
 
                 <h3>Вызов и ранги</h3>
@@ -1462,7 +1754,6 @@
                     <p>Если в течение 48 часов отсутствуют дополнительные запросы на дуэль, разрешено провести единственную имеющуюся дуэль.</p>
                 </div>
 
-                <!-- Регламент дуэлей Двенадцать Лун -->
                 <div class="section-title"><i class="fas fa-moon"></i> Регламент дуэлей Двенадцать Лун</div>
 
                 <h3>Причины для дуэли</h3>
@@ -1496,7 +1787,6 @@
                     <p>Первоначальный регламент дуэли также имеет вес в дуэлях Двенадцать Лун.</p>
                 </div>
 
-                <!-- Дополнительные правила -->
                 <div class="section-title"><i class="fas fa-plus-circle"></i> Дополнительные положения</div>
 
                 <div class="rule-block">
@@ -1551,8 +1841,7 @@
             </div>
         </div>
 
-        <!-- ===== ОСТАЛЬНЫЕ СТРАНИЦЫ ===== -->
-        <div id="circles" class="tab-page"><i class="fas fa-circle" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Круги крови</p></div>
+        <!-- ===== СТРАНИЦА ТЕРРИТОРИЯ ===== -->
         <div id="territory" class="tab-page"><i class="fas fa-map" style="font-size:3rem;color:#4a1a1a;display:block;text-align:center;margin-top:40px;"></i><p style="text-align:center;font-size:1.5rem;color:#6a3a3a;letter-spacing:3px;opacity:0.6;">Территория</p></div>
     </div>
 
